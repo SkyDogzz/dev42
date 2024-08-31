@@ -22,10 +22,7 @@ RUN pacman -Syu --noconfirm && \
 WORKDIR /root/wordir
 
 # Copy the NVChad configuration into the container
-COPY .nvchad/starter /root/.config/nvim
+COPY ./starter /root/.config/nvim
 
 # Install NVChad and required plugins
 RUN nvim --headless +PackerSync +qall
-
-# Set nvim as the entrypoint
-ENTRYPOINT ["nvim"]
