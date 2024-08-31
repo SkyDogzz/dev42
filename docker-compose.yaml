@@ -1,0 +1,28 @@
+services:
+  maker:
+    build:
+      context: ./maker  # Point to the /maker directory
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./maker:/app  # Synchronize the entire maker directory
+    environment:
+      - NODE_ENV=production  # Set the environment to production
+    command: /bin/sh -c "npm run build && npm run start"  # Run the app in production modenvchad
+  nvchad:
+    build: ./nvchad
+    container_name: nvchad-container
+    volumes:
+      - ./nvchad/starter:/root/.config/nvim              # Mount the NVChad config
+      - nvim-data:/root/.local/share/nvim         # NVChad data volume
+      - nvim-state:/root/.local/state/nvim        # NVChad state volume
+      - nvim-cache:/root/.cache/nvim              # NVChad cache volume
+      - ~/project:/root/workdir                   # Mount your workdir directory
+    environment:
+      - TERM=xterm-256color
+    tty: true
+
+volumes:
+  nvim-data:
+  nvim-state:
+  nvim-cache: 
